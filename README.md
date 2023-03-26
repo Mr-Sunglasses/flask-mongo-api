@@ -26,3 +26,12 @@ docker run -e SECRET_KEY="YOUR_SECRET_KEY" -e MONGO_URI = "YOUR_MONGODB_URL"  im
 
 
 ```
+
+# API USUAGE
+```docker
+○ GET /users - Returns a list of all users.
+○ GET /users/<id> - Returns the user with the specified ID.
+○ POST /users - Creates a new user with the specified data.
+○ PUT /users/<id> - Updates the user with the specified ID with the new data.
+○ DELETE /users/<id> - Deletes the user with the specified ID.
+```
