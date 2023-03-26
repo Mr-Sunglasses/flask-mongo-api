@@ -46,18 +46,19 @@ def user(id):
     resp = dumps(user)
     return resp
 
-@app.route("/users", methods=['PUT'])
-def update_user():
+@app.route("/users/<id>", methods=['PUT'])
+def update_user(id):
     _json = request.json
     User_add = User(name=_json['name'], email=_json['email'], password=_json['password'])
 
     # validate the recieved values
-    if User_add.name and User_add.email and User_add.password and request.method == 'POST':
+    if User_add.name and User_add.email and User_add.password and request.method == 'PUT':
 
 
         # save details
-        id = db.db.user.insert_one({'name': User_add.name, 'email': User_add.email, 'password': User_add.password})
-        resp = jsonify("User is added Successfully")
+        db.db.user.update_one({'_id': ObjectId(id['$oid']) if '$oid' in id else ObjectId(id)},
+                                 {'$set': {'name': User_add.name, 'email': User_add.email, 'pwd': User_add.password}})
+        resp = jsonify("User is updated Successfully")
         resp.status_code = 200
         return resp
 

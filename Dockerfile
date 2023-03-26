@@ -1,14 +1,10 @@
-FROM python:3.11-alpine
 
-# We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /app/requirements.txt
+FROM python:3.8-slim-buster
 
-WORKDIR /app
+WORKDIR /python-docker
 
-RUN pip install -r requirements.txt
+COPY . .
 
-COPY . /app
+RUN pip3 install -r requirements.txt
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "app.py" ]
+CMD [ "python3", "app.py"]
